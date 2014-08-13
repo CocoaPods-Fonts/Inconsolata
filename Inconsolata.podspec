@@ -19,6 +19,7 @@ Pod::Spec.new do |spec|
   end
 
   spec.subspec 'Tests' do |test_spec|
+    test_spec.dependency 'Inconsolata/Font'
     test_spec.frameworks = 'XCTest'
     test_spec.source_files = 'InconsolataTests.m'
   end

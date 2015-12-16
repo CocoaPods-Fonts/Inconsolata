@@ -6,12 +6,18 @@
 #import <CoreText/CoreText.h>
 #import "UIFont+Inconsolata.h"
 
-@implementation UIFont (Inconsolata)
+@interface KOSFontLoader : NSObject
 
-void InconsolataLoadFontWithName(NSString *fontName) {
-    NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"Inconsolata" withExtension:@"bundle"];
++ (void)loadFontWithName:(NSString *)fontName;
+
+@end
+
+@implementation KOSFontLoader
+
++(void) loadFontWithName:(NSString *)fontName {
+    NSURL *bundleURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"Inconsolata" withExtension:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
-    NSURL *fontURL = [bundle URLForResource:fontName withExtension:nil];
+    NSURL *fontURL = [bundle URLForResource:fontName withExtension:@"ttf"];
     NSData *fontData = [NSData dataWithContentsOfURL:fontURL];
 
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)fontData);
@@ -30,9 +36,13 @@ void InconsolataLoadFontWithName(NSString *fontName) {
     CFRelease(provider);
 }
 
+@end
+
+@implementation UIFont (Inconsolata)
+
 + (instancetype)inconsolataLoadAndReturnFont:(NSString *)fontName size:(CGFloat)fontSize onceToken:(dispatch_once_t *)onceToken fontFileName:(NSString *)fontFileName {
     dispatch_once(onceToken, ^{
-        InconsolataLoadFontWithName(fontFileName);
+        [KOSFontLoader loadFontWithName:fontFileName];  
     });
 
     return [self fontWithName:fontName size:fontSize];

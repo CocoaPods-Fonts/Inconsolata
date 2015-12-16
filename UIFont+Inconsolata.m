@@ -51,12 +51,12 @@
 
 + (instancetype)inconsolataFontOfSize:(CGFloat)fontSize {
     static dispatch_once_t onceToken;
-    return [self inconsolataLoadAndReturnFont:@"Inconsolata-Regular" size:fontSize onceToken:&onceToken fontFileName:@"Inconsolata-Regular.ttf"];
+    return [self inconsolataLoadAndReturnFont:@"Inconsolata-Regular" size:fontSize onceToken:&onceToken fontFileName:@"Inconsolata-Regular"];
 }
 
 + (instancetype)inconsolataBoldFontOfSize:(CGFloat)fontSize {
     static dispatch_once_t onceToken;
-    return [self inconsolataLoadAndReturnFont:@"Inconsolata-Bold" size:fontSize onceToken:&onceToken fontFileName:@"Inconsolata-Bold.ttf"];
+   return [self inconsolataLoadAndReturnFont:@"Inconsolata-Bold" size:fontSize onceToken:&onceToken fontFileName:@"Inconsolata-Bold"];
 }
 
 @end
